@@ -1,7 +1,7 @@
 from discord.ext import commands
 import os
 
-TOKEN = os.getenv('MTMyNTQ5NzMyODA0Nzc1MTE2OQ.GCXuPd.YBbuiD86ISmp2UKE9cjZBnPd0xxI3C58w8l_yU')
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='/')
 
