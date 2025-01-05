@@ -1,23 +1,26 @@
+import logging
+
+import discord
 from discord.ext import commands
 
+logger = logging.getLogger("discord")
 
-class AuthCog:
+
+class AuthCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.vinted_session = None
 
-    async def log_in(self, ctx, username, password):
-        # Implement login logic using Playwright
-        pass
+    @discord.app_commands.command(name="log-in", description="Log in to Vinted")
+    async def log_in_command(self, interaction: discord.Interaction, username: str, password: str):
+        logger.info(f"Logging in as {username}...")
+        await interaction.response.send_message(f"Logged in as {username}", ephemeral=True)
 
-    async def log_out(self, ctx):
-        # Implement logout logic
-        pass
+    @discord.app_commands.command(name="log-out", description="Log out from Vinted")
+    async def log_out_command(self, interaction: discord.Interaction):
+        logger.info("Logging out...")
+        await interaction.response.send_message("Logged out", ephemeral=True)
 
-    @commands.command(name='log-in')
-    async def log_in_command(self, ctx, username: str, password: str):
-        await self.log_in(ctx, username, password)
 
-    @commands.command(name='log-out')
-    async def log_out_command(self, ctx):
-        await self.log_out(ctx)
+async def setup(bot):
+    await bot.add_cog(AuthCog(bot))
